@@ -28,6 +28,7 @@ def init_serial():
 	ser.open() #open the serial port
 	global delta
 	delta = datetime.strptime('02', '%S') - datetime.strptime('00', '%S')
+	
 	# print port open or closed
 	if ser.isOpen():
 		print 'Open: ' + ser.portstr
@@ -54,7 +55,6 @@ def convert_data(line):
 			#calc position
 			pos_y = lat
 			pos_x = longtitude #longitude is negaitve			
-			#print line ," : gpgga : time ", time ," : ",num_sat
 			#shows that we are reading through this loop
 			value =  " longtitude :" , pos_y ,"lattitude : ", pos_x ," time " , time_str, " sat num ",num_sat
 			data = dict(lat = pos_x , long=pos_y , sat=num_sat, time =  time_str )
@@ -62,14 +62,11 @@ def convert_data(line):
 	
 def send_json_data(data_gps):
 	url = "http://158.108.16.250:22222/api/track/trackings/"
-	#print(data_gps)
-	#print(json.dumps(data_gps))	
 	#data_gps = {
 	    #"lat": "13.842153",
 	    #"long": "100.5363",
 	    #"car_id": "1"
 	#}
-	#print(json.dumps(data_gps))
 	
 	headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 	r = requests.post(url, data=json.dumps(data_gps), headers=headers)
@@ -111,12 +108,10 @@ def process():
 #####SETUP################################################
 #this is a good spot to run your initializations 
 init_serial()
-f = open('nmea.txt', 'a')	
 
 #####MAIN LOOP############################################
 #for i in range(100):	
 while True:
 	process()
 	
-f.close()	
 #hit ctr-c to close python window
