@@ -110,7 +110,6 @@ def process():
 init_serial()
 
 #####MAIN LOOP############################################
-#for i in range(100):	
 while True:
 	process()
 	
