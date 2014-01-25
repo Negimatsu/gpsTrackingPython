@@ -57,7 +57,7 @@ def convert_data(line):
 			pos_x = longtitude #longitude is negaitve			
 			#shows that we are reading through this loop
 			value =  " longtitude :" , pos_y ,"lattitude : ", pos_x ," time " , time_str, " sat num ",num_sat
-			data = dict(lat = pos_x , long=pos_y , sat=num_sat, time =  time_str )
+			data = dict(lat = pos_y , long=pos_x , sat=num_sat, time =  time_str )
 			return data
 	
 def send_json_data(data_gps):
